@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
@@ -31,8 +31,10 @@ export default function SearchPage() {
             ? setuserSearch(persons)
             : setuserSearch([...usersearch, ...persons]);
           setApiLoading(false);
-        }).catch((error)=>{
-          toast.error(error.response.data.message)
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          setApiLoading(false);
         });
     }
   };
