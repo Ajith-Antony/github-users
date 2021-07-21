@@ -4,7 +4,7 @@ import ProfilePage from './components/ProfilePage';
 function App() {
   return (
     <div className='App'>
-      <Router>
+      <Router basename='/github-users'>
         <Switch>
           <Route exact path='/' component={SearchPage} />
           <Route path='/profile' component={ProfilePage} />
