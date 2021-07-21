@@ -64,7 +64,7 @@ export default function SearchPage(props) {
       <Card.Header className='border-bottom py-4'>
         <div className='d-flex m-2 p-4'>
           {gitLogo}
-          <span className='d-flex fw-normal text-black-50 ms-2 align-self-center col-8'>
+          <span className='d-flex fw-normal text-black-50 ms-2 align-self-center'>
             GitHub Profile Viewer
           </span>
         </div>

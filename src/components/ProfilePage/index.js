@@ -51,7 +51,7 @@ export default function ProfilePage(props) {
           setApiTwoLoading(false);
         });
     } else {
-      history.push('/');
+      history.push('/github-users/');
     }
   }, []);
   return (
