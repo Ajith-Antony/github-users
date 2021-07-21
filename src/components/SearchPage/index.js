@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { List } from 'react-content-loader';
 import { avatar, closeIcon, gitLogo, searchIcon } from './searchPage.utils';
+import { useHistory } from 'react-router-dom';
 
-export default function SearchPage() {
+export default function SearchPage(props) {
   const [usersearch, setuserSearch] = useState([]);
+  const history = useHistory();
   const [pagenumber, setPagenumber] = useState(1);
   const [searchInput, setSearchInput] = useState('');
   const [apiLoading, setApiLoading] = useState(false);
@@ -23,7 +25,7 @@ export default function SearchPage() {
     if (searchInput) {
       axios
         .get(
-          `https://api.github.com/search/users?q=${searchInput}&page=${pagenumber}&per_page=20`
+          `https://api.github.com/search/users?q=${searchInput}&page=${pagenumber}&per_page=30`
         )
         .then((res) => {
           const persons = res.data.items;
@@ -31,11 +33,23 @@ export default function SearchPage() {
             ? setuserSearch(persons)
             : setuserSearch([...usersearch, ...persons]);
           setApiLoading(false);
-        }).catch((error)=>{
-          toast.error(error.response.data.message)
+        })
+        .catch((error) => {
+          toast.error(
+            error.response ? error.response.data.message : 'An error occured'
+          );
+          setApiLoading(false);
         });
     }
   };
+  useEffect(() => {
+    props.location.data
+      ? setuserSearch(props.location.data)
+      : setuserSearch([]);
+    props.location.searchData
+      ? setSearchInput(props.location.searchData)
+      : setSearchInput('');
+  }, []);
   const onScrollHandle = (evt) => {
     if (
       evt.target.offsetHeight + evt.target.scrollTop >=
@@ -90,17 +104,30 @@ export default function SearchPage() {
         className='overflow-auto'
         style={{ height: pageHeight }}
       >
-        <Row>{getCards(usersearch)}</Row>
+        <Row>{getCards(usersearch, history, searchInput)}</Row>
         {apiLoading ? <List /> : null}
       </Card.Body>
       <ToastContainer />
     </Card>
   );
 }
-const getCards = (userSearch) => {
+const getCards = (userSearch, history, searchInput) => {
   return userSearch.map((item, index) => (
-    <Col lg={3} sm={6} md={4} xs={12}>
-      <Card className='shadow-sm rounded mb-4' key={index}>
+    <Col lg={3} sm={6} md={4} xs={12} xl={2}>
+      <Card
+        style={{ cursor: 'pointer' }}
+        className='shadow-sm rounded mb-4'
+        key={index}
+        onClick={() =>
+          history.push({
+            pathname: '/profile',
+            loginId: item.login,
+            avatar_url: item.avatar_url,
+            data: userSearch,
+            searchData: searchInput,
+          })
+        }
+      >
         <Card.Body className='d-flex'>
           {item.avatar_url ? (
             <img
