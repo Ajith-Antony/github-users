@@ -64,7 +64,7 @@ export default function SearchPage(props) {
       <Card.Header className='border-bottom py-4'>
         <div className='d-flex m-2 p-4'>
           {gitLogo}
-          <span className='d-flex fs-3 fw-normal text-black-50 ms-2 align-self-center col-8'>
+          <span className='d-flex fw-normal text-black-50 ms-2 align-self-center col-8'>
             GitHub Profile Viewer
           </span>
         </div>
@@ -113,7 +113,7 @@ export default function SearchPage(props) {
 }
 const getCards = (userSearch, history, searchInput) => {
   return userSearch.map((item, index) => (
-    <Col lg={3} sm={6} md={4} xs={12} xl={2}>
+    <Col lg={3} sm={6} md={4} xs={12} xl={3}>
       <Card
         style={{ cursor: 'pointer' }}
         className='shadow-sm rounded mb-4'

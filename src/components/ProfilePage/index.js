@@ -7,6 +7,7 @@ import { List } from 'react-content-loader';
 import { useHistory } from 'react-router-dom';
 import { blackArrow } from './profilePage.utils';
 import { avatar } from '../SearchPage/searchPage.utils';
+import './index.css';
 
 export default function ProfilePage(props) {
   const history = useHistory();
@@ -79,7 +80,7 @@ export default function ProfilePage(props) {
             alt='profile'
           />
           <div className='d-flex flex-column p-2 m-2 '>
-            <span className='fw-bold fs-3 text-secondary'>{userData.name}</span>
+            <span className='fw-bold text-secondary'>{userData.name}</span>
             <span className='fs-6 text-black-50'>{`@${props.location.loginId}`}</span>
           </div>
         </div>
@@ -100,14 +101,14 @@ export default function ProfilePage(props) {
             {userData.company ? userData.company : 'No Company data'}
           </p>
         </div>
-        <div className='d-flex '>
-          <div className='w-50'>
-            <span className='fs-5 text-secondary'>Repositories</span>
+        <div className='heading-profile'>
+          <div className='child-heading'>
+            <span className='fs-5 text-secondary '>Repositories</span>
             <p className='fs-6 text-black-50'>
               {userData.public_repos ? userData.public_repos : 'No data'}
             </p>
           </div>
-          <div className='w-50'>
+          <div className='child-heading'>
             <span className='fs-5 text-secondary'>Followers</span>
             <p className='fs-6 text-black-50'>
               {userData.followers ? userData.followers : 'No data'}
